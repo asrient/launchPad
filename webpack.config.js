@@ -22,7 +22,7 @@ module.exports = {
   },
   resolve: { extensions: ["*", ".js", ".jsx"] },
   output: {
-    path: "H:\\AA\\pine\\app\\home\\data\\files\\launchpad",
+    path: "H:\\AA\\pine\\app\\data\\apps\\launchpad\\source",
     publicPath: "/",
     filename: "[name].js"
   },

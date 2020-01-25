@@ -2,13 +2,9 @@ import $ from "jquery";
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 
-import "./styles.css"
+import "./styles.css";
 
-
-
-function TryClose(){
-    pine.destroy();
-}
+pine.window.hideTitleBar();
 
 class AppLink extends React.Component {
     constructor(props) {
@@ -17,8 +13,10 @@ class AppLink extends React.Component {
     }
     open=()=>{
     console.log('open:',this.props);
-    pine.appService.send('open-app',this.props.id);
-    pine.minimize();
+    pine.openAppById(this.props.id);
+    window.setTimeout(()=>{
+    pine.app.quit();
+    },1000)
     }
     render() {
         return (
@@ -32,8 +30,8 @@ class AppLink extends React.Component {
     }
 }
 
-var appsdb=pine.store('showCase.txt');
-
+var appsdb=pine.data.store('showCase.txt');
+var id=0;
 
 class ShowCase extends React.Component {
     constructor(props) {
@@ -41,8 +39,6 @@ class ShowCase extends React.Component {
         this.state = { isLoading: true, apps: [], isError: false }
     }
     componentDidMount = () => {
-        appsdb.open((err,r)=>{
-            console.log('db opened',err,r);
         appsdb.find({}, (err, data) => {
             var state = this.state;
             state.isLoading = false;
@@ -57,9 +53,6 @@ class ShowCase extends React.Component {
             }
             this.setState(state);
         })
-
-            });
-
     }
     render() {
         if (this.state.isLoading) {
@@ -123,17 +116,17 @@ function hide(){
     }
 }
 
-
-$(window).on('scroll',()=>{
+$(window).scroll(()=>{
+    console.log('scrolling..')
     var curPos = $("#head").offset();
     var curTop = curPos.top;
     var scrollTop = $(window).scrollTop();
     if (curTop+$("#head").height() < scrollTop) {
-       // console.log('show')
+        console.log('show')
         show();
     }
     else{
-      // console.log('hide')
+       console.log('hide')
        hide();
     }
 })

@@ -12,9 +12,9 @@
 }
 .appsGrid{
     display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(145px, 1fr));
     padding:3rem;
     margin-top: 3rem;
-    grid-template-columns: 20% 20% 20% 20% 20%;
 }
 .frame{
 min-height: 100%;
@@ -28,7 +28,7 @@ min-height: 100%;
     width:100vw;
     height: 3rem;
     background: #efefefb8;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(20px);
     z-index: 2;
 }
 .handle{
